@@ -69,9 +69,11 @@ This Django project implements a RESTful API using Django Rest Framework (DRF) f
 
 ## Usage
 
-API Endpoints
+### API Endpoints
+
 Users
-POST /API/users/: Create a new user (only managers).
+
+- POST /API/users/: Create a new user (only managers).
 
 Request body: {"username": "newuser", "email": "newuser@example.com", "password": "newpassword", "user_type": "customer"}
 
