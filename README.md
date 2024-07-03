@@ -1,26 +1,25 @@
-# Quote API (Django)
+# Django REST API with Custom User Management
 
-This Django project provides an API for managing and retrieving quotes. It includes endpoints for retrieving quotes in both English and translated to Bengali.
+This Django project implements a RESTful API using Django Rest Framework (DRF) for user management. It includes user CRUD operations with permissions based on user types (manager and customer), token-based authentication, and custom middleware for logging requests and checking user types.
 
 ## Requirements
 
 - Python 3.8+
 - Docker
-- Run Srapping script Before
 
 ## Installation
 
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/Anisujjaman-Md/newroz_task.git
+   git clone https://github.com/Anisujjaman-Md/bitmorpher.git
 
    ```
 
 2. Navigate to the project directory:
 
    ```shell
-   cd newroz_task/project # for Linux/Mac
+   cd config # for Linux/Mac
 
    ```
 
@@ -59,13 +58,6 @@ This Django project provides an API for managing and retrieving quotes. It inclu
 
   ```
 
-- Import Scrap Data from Csv file:
-
-  ```shell
-  python manage.py import_csv inspirational_quotes.csv
-
-  ```
-
 - Start the development server:
 
   The API will be accessible at http://localhost:8000
@@ -77,36 +69,37 @@ This Django project provides an API for managing and retrieving quotes. It inclu
 
 ## Usage
 
-Endpoints
+API Endpoints
+Users
+POST /API/users/: Create a new user (only managers).
 
-1. GET /quotes/: Retrieve a list of all quotes.
+Request body: {"username": "newuser", "email": "newuser@example.com", "password": "newpassword", "user_type": "customer"}
 
-2. GET /quotes/<id>/: Retrieve a specific quote by its ID.
+Response: {"username": "newuser", "email": "newuser@example.com", "user_type": "customer", "authentication_token": "generated_token"}
 
-## Bonus
+- GET /API/users/: List all users (only customers).
 
-3. GET /random/quotes/: Retrieve a random quote.
+- GET /API/users/<username>/: Retrieve details of a specific user (only customers).
 
-4. GET /quotes-bangla-translate/<id>/: Retrieve a specific quote translated to Bengali.
+- PUT /API/users/<username>/: Update details of a specific user (only managers).
 
-## Example Usage
+- DELETE /API/users/<username>/: Delete a specific user (only managers).
 
-# Retrieve all quotes
+Authentication
+Token-based authentication is used.
+Managers can create, update, and delete users.
+Customers can view user details and list users.
 
-curl http://localhost:8000/api/v1/quotes/
+## Middleware
 
-# Retrieve a specific quote by ID
+### Custom Middleware
 
-curl http://localhost:8000/api/v1/quotes/1/
+RequestLogMiddleware: Logs details of each API request, including username and timestamp.
 
-# Retrieve a random quote
+### UserTypeMiddleware
 
-curl http://localhost:8000/api/v1/random/quotes/
+Checks the user's type based on the authentication token and grants permissions accordingly. Anonymous users are denied access.
 
-# Retrieve a specific quote translated to Bengali
+### Api In postman Example
 
-curl http://localhost:8000/api/v1/qoutes-bangla-translate/1/
-
-# Swagger Api Documentation
-
-curl http://127.0.0.1:8000/swagger/
+![alt text](image.png)
