@@ -73,19 +73,19 @@ This Django project implements a RESTful API using Django Rest Framework (DRF) f
 
 Users
 
-- POST /API/users/: Create a new user (only managers).
+- POST /api/users/: Create a new user (only managers).
 
 Request body: {"username": "newuser", "email": "newuser@example.com", "password": "newpassword", "user_type": "customer"}
 
 Response: {"username": "newuser", "email": "newuser@example.com", "user_type": "customer", "authentication_token": "generated_token"}
 
-- GET /API/users/: List all users (only customers).
+- GET /api/users/: List all users (only customers).
 
-- GET /API/users/<username>/: Retrieve details of a specific user (only customers).
+- GET /api/users/<username>/: Retrieve details of a specific user (only customers).
 
-- PUT /API/users/<username>/: Update details of a specific user (only managers).
+- PUT /api/users/<username>/: Update details of a specific user (only managers).
 
-- DELETE /API/users/<username>/: Delete a specific user (only managers).
+- DELETE /api/users/<username>/: Delete a specific user (only managers).
 
 Authentication
 Token-based authentication is used.
